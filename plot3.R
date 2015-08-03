@@ -37,7 +37,7 @@ plot3 <- function() {
   dev.copy(png, file="plot3.png", width=480, height=480)
   dev.off()
   ## Output directory where the png file was saved
-  cat("plot2.png has been saved in", getwd())
+  cat("plot3.png has been saved in", getwd())
 }
 
 plot3()

@@ -1,5 +1,18 @@
 plot3 <- function() {
   
+  plotGraph <- function() {
+    ## Generating Plot 3
+    with(data, {
+      plot(Sub_metering_1 ~ Datetime, type = "l", 
+           ylab = "Global Active Power (kilowatts)", xlab = "")
+      lines(Sub_metering_2 ~ Datetime, col = 'Red')
+      lines(Sub_metering_3 ~ Datetime, col = 'Blue')
+    })
+    
+    ## adding legend
+    legend("topright", col=c("black","red","blue"), c("Sub_metering_1  ","Sub_metering_2  ", "Sub_metering_3  "),lty=c(1,1), lwd=c(1,1))
+  }
+  
   if(!file.exists("household_power_consumption.txt")) {
     temp <- tempfile()
     download.file("http://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip",temp)
@@ -22,19 +35,11 @@ plot3 <- function() {
   datetime <- paste(as.Date(data$Date), data$Time)
   data$Datetime <- as.POSIXct(datetime)
   
-  ## Generating Plot 3
-  with(data, {
-    plot(Sub_metering_1 ~ Datetime, type = "l", 
-         ylab = "Global Active Power (kilowatts)", xlab = "")
-    lines(Sub_metering_2 ~ Datetime, col = 'Red')
-    lines(Sub_metering_3 ~ Datetime, col = 'Blue')
-  })
-  
-  ## adding legend
-  legend("topright", col=c("black","red","blue"), c("Sub_metering_1  ","Sub_metering_2  ", "Sub_metering_3  "),lty=c(1,1), lwd=c(1,1))
+  plotGraph()
   
   ## Copying plot to png file
-  dev.copy(png, file="plot3.png", width=480, height=480)
+  png("plot3.png", width=480, height=480)
+  plotGraph()
   dev.off()
   ## Output directory where the png file was saved
   cat("plot3.png has been saved in", getwd())

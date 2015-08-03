@@ -1,5 +1,10 @@
 plot2 <- function() {
   
+  plotGraph <- function() {
+    ## Generating Plot 2
+    plot(data$Global_active_power ~ data$Datetime, type = "l",
+         ylab = "Global Active Power (kilowatts)", xlab = "")
+  }
   if(!file.exists("household_power_consumption.txt")) {
     temp <- tempfile()
     download.file("http://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip",temp)
@@ -22,11 +27,10 @@ rm(data_full_household_power)
 datetime <- paste(as.Date(data$Date), data$Time)
 data$Datetime <- as.POSIXct(datetime)
 
-## Generating Plot 2
-plot(data$Global_active_power ~ data$Datetime, type = "l",
-     ylab = "Global Active Power (kilowatts)", xlab = "")
+plotGraph()
 ## Copying plot to png file
-dev.copy(png, file="plot2.png", width=480, height=480)
+png("plot2.png", width=480, height=480)
+plotGraph()
 dev.off()
 ## Output directory where the png file was saved
 cat("plot2.png has been saved in", getwd())
